@@ -23,8 +23,15 @@ class TicTacToe
   end
 
   def play
-    puts "\nType your move with either X or O and the position(eg:X1a):"
+    puts "\nType your move with either the letter X or O and the position(eg:X1A or x1a):"
+    input = gets.chomp.downcase
+    if input =~ /(x|o)([1-3])([a-c])/
+      puts "Ok!"
+    else
+      puts "Not ok!"
+    end
   end
+  
 end
 
 TicTacToe.new
