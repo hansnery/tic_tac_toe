@@ -1,17 +1,24 @@
+# frozen_string_literal: true
+
+# :nodoc:
 class TicTacToe
   require_relative 'player'
 
-  def initialize
+  attr_accessor :player_one, :player_two, :line_1, :line_2, :line_3
+
+  def start
     clear_board
     puts "\nWelcome to TicTacToe!"
     create_players
     play
   end
 
+  private
+
   def clear_board
-    @line_1 = [" "," ", " "]
-    @line_2 = [" "," ", " "]
-    @line_3 = [" "," ", " "]
+    @line_1 = [' ', ' ', ' ']
+    @line_2 = [' ', ' ', ' ']
+    @line_3 = [' ', ' ', ' ']
     @turn = 0
   end
 
@@ -42,54 +49,54 @@ class TicTacToe
   def check_board(input)
     if input[0].to_i == 1
       case input[1]
-      when "a"
-        if @line_1[0] != " "
+      when 'a'
+        if @line_1[0] != ' '
           puts "\nThere's already one #{@line_1[0]} there!"
           play
         end
-      when "b"
-        if @line_1[1] != " "
+      when 'b'
+        if @line_1[1] != ' '
           puts "\nThere's already one #{@line_1[1]} there!"
           play
         end
-      when "c"
-        if @line_1[2] != " "
+      when 'c'
+        if @line_1[2] != ' '
           puts "\nThere's already one #{@line_1[2]} there!"
           play
         end
       end
     elsif input[0].to_i == 2
       case input[1]
-      when "a"
-        if @line_2[0] != " "
+      when 'a'
+        if @line_2[0] != ' '
           puts "\nThere's already one #{@line_2[0]} there!"
           play
         end
-      when "b"
-        if @line_2[1] != " "
+      when 'b'
+        if @line_2[1] != ' '
           puts "\nThere's already one #{@line_2[1]} there!"
           play
         end
-      when "c"
-        if @line_2[2] != " "
+      when 'c'
+        if @line_2[2] != ' '
           puts "\nThere's already one #{@line_2[2]} there!"
           play
         end
       end
     elsif input[0].to_i == 3
       case input[1]
-      when "a"
-        if @line_3[0] != " "
+      when 'a'
+        if @line_3[0] != ' '
           puts "\nThere's already one #{@line_3[0]} there!"
           play
         end
-      when "b"
-        if @line_3[1] != " "
+      when 'b'
+        if @line_3[1] != ' '
           puts "\nThere's already one #{@line_3[1]} there!"
           play
         end
-      when "c"
-        if @line_3[2] != " "
+      when 'c'
+        if @line_3[2] != ' '
           puts "\nThere's already one #{@line_3[2]} there!"
           play
         end
@@ -100,55 +107,55 @@ class TicTacToe
   def modify_board(input, symbol)
     if input[0].to_i == 1
       case input[1]
-      when "a"
+      when 'a'
         @line_1[0] = symbol
-      when "b"
+      when 'b'
         @line_1[1] = symbol
-      when "c"
+      when 'c'
         @line_1[2] = symbol
       end
     elsif input[0].to_i == 2
       case input[1]
-      when "a"
+      when 'a'
         @line_2[0] = symbol
-      when "b"
+      when 'b'
         @line_2[1] = symbol
-      when "c"
+      when 'c'
         @line_2[2] = symbol
       end
     elsif input[0].to_i == 3
       case input[1]
-      when "a"
+      when 'a'
         @line_3[0] = symbol
-      when "b"
+      when 'b'
         @line_3[1] = symbol
-      when "c"
+      when 'c'
         @line_3[2] = symbol
       end
     end
   end
 
   def check_lines
-    if @line_1[0] == "X" && @line_1[1] == "X" && @line_1[2] == "X" || # check horizontal lines
-       @line_2[0] == "X" && @line_2[1] == "X" && @line_2[2] == "X" ||
-       @line_3[0] == "X" && @line_3[1] == "X" && @line_3[2] == "X" || 
-       @line_1[0] == "X" && @line_2[0] == "X" && @line_3[0] == "X" || # check vertical lines
-       @line_1[1] == "X" && @line_2[1] == "X" && @line_3[1] == "X" || 
-       @line_1[2] == "X" && @line_2[2] == "X" && @line_3[2] == "X" || 
-       @line_1[0] == "X" && @line_2[1] == "X" && @line_3[2] == "X" || # check diagonal lines
-       @line_1[2] == "X" && @line_2[1] == "X" && @line_3[0] == "X"
+    if @line_1[0] == 'X' && @line_1[1] == 'X' && @line_1[2] == 'X' || # check horizontal lines
+       @line_2[0] == 'X' && @line_2[1] == 'X' && @line_2[2] == 'X' ||
+       @line_3[0] == 'X' && @line_3[1] == 'X' && @line_3[2] == 'X' ||
+       @line_1[0] == 'X' && @line_2[0] == 'X' && @line_3[0] == 'X' || # check vertical lines
+       @line_1[1] == 'X' && @line_2[1] == 'X' && @line_3[1] == 'X' ||
+       @line_1[2] == 'X' && @line_2[2] == 'X' && @line_3[2] == 'X' ||
+       @line_1[0] == 'X' && @line_2[1] == 'X' && @line_3[2] == 'X' || # check diagonal lines
+       @line_1[2] == 'X' && @line_2[1] == 'X' && @line_3[0] == 'X'
       puts "\n#{@player_one.name} wins!\n"
       @player_one.wins += 1
       show_score
       ask_for_a_rematch
-    elsif @line_1[0] == "O" && @line_1[1] == "O" && @line_1[2] == "O" || # check horizontal lines
-          @line_2[0] == "O" && @line_2[1] == "O" && @line_2[2] == "O" ||
-          @line_3[0] == "O" && @line_3[1] == "O" && @line_3[2] == "O" || 
-          @line_1[0] == "O" && @line_2[0] == "O" && @line_3[0] == "O" || # check vertical lines
-          @line_1[1] == "O" && @line_2[1] == "O" && @line_3[1] == "O" || 
-          @line_1[2] == "O" && @line_2[2] == "O" && @line_3[2] == "O" || 
-          @line_1[0] == "O" && @line_2[1] == "O" && @line_3[2] == "O" || # check diagonal lines
-          @line_1[2] == "O" && @line_2[1] == "O" && @line_3[0] == "O"
+    elsif @line_1[0] == 'O' && @line_1[1] == 'O' && @line_1[2] == 'O' || # check horizontal lines
+          @line_2[0] == 'O' && @line_2[1] == 'O' && @line_2[2] == 'O' ||
+          @line_3[0] == 'O' && @line_3[1] == 'O' && @line_3[2] == 'O' ||
+          @line_1[0] == 'O' && @line_2[0] == 'O' && @line_3[0] == 'O' || # check vertical lines
+          @line_1[1] == 'O' && @line_2[1] == 'O' && @line_3[1] == 'O' ||
+          @line_1[2] == 'O' && @line_2[2] == 'O' && @line_3[2] == 'O' ||
+          @line_1[0] == 'O' && @line_2[1] == 'O' && @line_3[2] == 'O' || # check diagonal lines
+          @line_1[2] == 'O' && @line_2[1] == 'O' && @line_3[0] == 'O'
       puts "\n#{@player_two.name} wins!\n"
       @player_two.wins += 1
       show_score
@@ -165,7 +172,7 @@ class TicTacToe
     input = gets.chomp.downcase
     puts "\n"
 
-    if input == "yes"
+    if input == 'yes'
       clear_board
       play
     else
@@ -178,16 +185,16 @@ class TicTacToe
   def play
     @@input = nil
 
-    while @@input != "exit"
+    while @@input != 'exit'
       check_lines
 
       print_board
 
       if @turn == 0
-        symbol = "X"
+        symbol = 'X'
         puts "\nIt's #{@player_one.name}'s turn!\n"
       else
-        symbol = "O"
+        symbol = 'O'
         puts "\nIt's #{@player_two.name}'s turn!\n"
       end
 
@@ -211,4 +218,5 @@ class TicTacToe
   end
 end
 
-TicTacToe.new
+game = TicTacToe.new
+game.start
